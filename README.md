@@ -2,7 +2,7 @@
 
 ### Socket based duplex communication framework for .NET Core
 
-Serialization layer for [Meepo](https://github.com/GowenGit/Meepo)
+Serialization layer for [Meepo](https://github.com/GowenGit/Meepo). Will be added as a nuget package.
 
 ### Example
 
@@ -47,7 +47,7 @@ using (var meepo = new TypicalMeepo(address, serverAddresses, new[] { Assembly.G
         }).Wait();
     }
 }
-```
+``` 
 
 `Assembly.GetEntryAssembly()` is used to specify where to look for types that have `MeepoPackage` attribute.
 
