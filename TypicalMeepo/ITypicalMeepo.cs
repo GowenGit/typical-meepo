@@ -26,7 +26,7 @@ namespace TypicalMeepo
         /// <param name="id">Client ID</param>
         /// <param name="data">Data to send</param>
         /// <returns></returns>
-        Task Send<T>(Guid id, T data);
+        Task SendAsync<T>(Guid id, T data);
 
         /// <summary>
         /// Send data to a all clients.
@@ -34,31 +34,31 @@ namespace TypicalMeepo
         /// </summary>
         /// <param name="data">Data to send</param>
         /// <returns></returns>
-        Task Send<T>(T data);
+        Task SendAsync<T>(T data);
 
         /// <summary>
-        /// Run meepo server.
+        /// Run Meepo server.
         /// Starts listening for new clients
         /// and connects to specified servers.
         /// </summary>
-        Task Start();
+        void Start();
 
         /// <summary>
-        /// Stop meepo server.
+        /// Stop Meepo server.
         /// </summary>
         void Stop();
 
         /// <summary>
-        /// Subscribe to a event when message of a specific type is received.
+        /// Subscribe to event when message of a specific type is received.
         /// </summary>
-        /// <typeparam name="T">Meepo paskage</typeparam>
+        /// <typeparam name="T">Meepo package</typeparam>
         /// <param name="action">MessageReceivedHandler delegate</param>
         void Subscribe<T>(MessageReceivedHandler<T> action);
 
         /// <summary>
         /// Unsubscribe from event.
         /// </summary>
-        /// <typeparam name="T">Meepo paskage</typeparam>
+        /// <typeparam name="T">Meepo package</typeparam>
         void Unsubscribe<T>();
     }
 }

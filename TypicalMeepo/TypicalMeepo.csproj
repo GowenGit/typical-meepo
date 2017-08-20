@@ -1,12 +1,23 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <OutputType>Library</OutputType>
+    <Authors>Modestas Petravicius</Authors>
+    <Title>TypicalMeepo</Title>
+    <AssemblyTitle>TypicalMeepo</AssemblyTitle>
+    <Description>Serialization layer for Meepo</Description>
+    <Copyright>MIT License</Copyright>
+    <PackageProjectUrl>https://github.com/GowenGit/TypicalMeepo</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/GowenGit/TypicalMeepo</RepositoryUrl>
+    <PackageIconUrl>https://raw.githubusercontent.com/GowenGit/TypicalMeepo/master/icon.png</PackageIconUrl>
+    <PackageTags>.NET Core;Sockets;Duplex;Cluster;Network;Serialization</PackageTags>
     <TargetFramework>netcoreapp1.1</TargetFramework>
-    <ApplicationIcon />
-    <StartupObject />
+    <RepositoryType>GitHub</RepositoryType>
+    <PackageLicenseUrl>https://github.com/GowenGit/TypicalMeepo</PackageLicenseUrl>
+    <NeutralLanguage>en-GB</NeutralLanguage>
+    <PackageReleaseNotes>Alpha release</PackageReleaseNotes>
+    <Version>0.1.1-alpha</Version>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meepo" Version="0.1.0-alpha" />
+    <PackageReference Include="Meepo" Version="0.1.1-alpha" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.ValueTuple" Version="4.3.0" />
   </ItemGroup>

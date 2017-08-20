@@ -9,6 +9,6 @@
     <ProjectReference Include="..\TypicalMeepo\TypicalMeepo.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Meepo" Version="0.1.0-alpha" />
+    <PackageReference Include="Meepo" Version="0.1.1-alpha" />
   </ItemGroup>
 </Project>

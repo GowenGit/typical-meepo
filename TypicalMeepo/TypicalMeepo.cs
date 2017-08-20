@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Reflection;
 using System.Threading.Tasks;
 using Meepo.Core.Configs;
-using Meepo.Core.Logging;
 using TypicalMeepo.Core.Attributes;
 using TypicalMeepo.Core.Events;
 using TypicalMeepo.Core.Exceptions;
@@ -20,6 +19,26 @@ namespace TypicalMeepo
         private readonly Dictionary<int, MessageReceivedHandler> handlers = new Dictionary<int, MessageReceivedHandler>();
 
         #region Constructors
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="listenerAddress">Address you want to expose</param>
+        public TypicalMeepo(TcpAddress listenerAddress)
+        {
+            repo = new TypeRepo(new[] { Assembly.GetEntryAssembly() });
+            meepo = new Meepo.Meepo(listenerAddress);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="listenerAddress">Address you want to expose</param>
+        /// <param name="config">Meepo configuration</param>
+        public TypicalMeepo(TcpAddress listenerAddress, MeepoConfig config)
+        {
+            repo = new TypeRepo(new[] { Assembly.GetEntryAssembly() });
+            meepo = new Meepo.Meepo(listenerAddress, config);
+        }
 
         /// <summary>
         /// Constructor.
@@ -36,12 +55,23 @@ namespace TypicalMeepo
         /// Constructor.
         /// </summary>
         /// <param name="listenerAddress">Address you want to expose</param>
-        /// <param name="logger">Custom ILogger implementation</param>
+        /// <param name="config">Meepo configuration</param>
         /// <param name="assemblies">Assemblies where meepo packets are defined</param>
-        public TypicalMeepo(TcpAddress listenerAddress, ILogger logger, IEnumerable<Assembly> assemblies)
+        public TypicalMeepo(TcpAddress listenerAddress, MeepoConfig config, IEnumerable<Assembly> assemblies)
         {
             repo = new TypeRepo(assemblies);
-            meepo = new Meepo.Meepo(listenerAddress, logger);
+            meepo = new Meepo.Meepo(listenerAddress, config);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="listenerAddress">Address you want to expose</param>
+        /// <param name="serverAddresses">List of server addresses to connect to</param>
+        public TypicalMeepo(TcpAddress listenerAddress, IEnumerable<TcpAddress> serverAddresses)
+        {
+            repo = new TypeRepo(new[] { Assembly.GetEntryAssembly() });
+            meepo = new Meepo.Meepo(listenerAddress, serverAddresses);
         }
 
         /// <summary>
@@ -61,27 +91,39 @@ namespace TypicalMeepo
         /// </summary>
         /// <param name="listenerAddress">Address you want to expose</param>
         /// <param name="serverAddresses">List of server addresses to connect to</param>
-        /// <param name="logger">Custom ILogger implementation</param>
+        /// <param name="config">Meepo configuration</param>
+        public TypicalMeepo(TcpAddress listenerAddress, IEnumerable<TcpAddress> serverAddresses, MeepoConfig config)
+        {
+            repo = new TypeRepo(new[] { Assembly.GetEntryAssembly() });
+            meepo = new Meepo.Meepo(listenerAddress, serverAddresses, config);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="listenerAddress">Address you want to expose</param>
+        /// <param name="serverAddresses">List of server addresses to connect to</param>
+        /// <param name="config">Meepo configuration</param>
         /// <param name="assemblies">Assemblies where meepo packets are defined</param>
-        public TypicalMeepo(TcpAddress listenerAddress, IEnumerable<TcpAddress> serverAddresses, ILogger logger, IEnumerable<Assembly> assemblies)
+        public TypicalMeepo(TcpAddress listenerAddress, IEnumerable<TcpAddress> serverAddresses, MeepoConfig config, IEnumerable<Assembly> assemblies)
         {
             repo = new TypeRepo(assemblies);
-            meepo = new Meepo.Meepo(listenerAddress, serverAddresses, logger);
+            meepo = new Meepo.Meepo(listenerAddress, serverAddresses, config);
         }
         #endregion
 
         /// <summary>
-        /// Run meepo server.
+        /// Run Meepo server.
         /// Starts listening for new clients
         /// and connects to specified servers.
         /// </summary>
-        public async Task Start()
+        public void Start()
         {
-            await meepo.Start();
+            meepo.Start();
         }
 
         /// <summary>
-        /// Stop meepo server.
+        /// Stop Meepo server.
         /// </summary>
         public void Stop()
         {
@@ -103,9 +145,9 @@ namespace TypicalMeepo
         /// <param name="id">Client ID</param>
         /// <param name="data">Data to send</param>
         /// <returns></returns>
-        public async Task Send<T>(Guid id, T data)
+        public async Task SendAsync<T>(Guid id, T data)
         {
-            await meepo.Send(id, data.PackageToBytes(repo));
+            await meepo.SendAsync(id, data.PackageToBytes(repo));
         }
 
         /// <summary>
@@ -114,9 +156,9 @@ namespace TypicalMeepo
         /// </summary>
         /// <param name="data">Data to send</param>
         /// <returns></returns>
-        public async Task Send<T>(T data)
+        public async Task SendAsync<T>(T data)
         {
-            await meepo.Send(data.PackageToBytes(repo));
+            await meepo.SendAsync(data.PackageToBytes(repo));
         }
 
         /// <summary>
@@ -129,15 +171,15 @@ namespace TypicalMeepo
         }
 
         /// <summary>
-        /// Subscribe to a event when message of a specific type is received.
+        /// Subscribe to event when message of a specific type is received.
         /// </summary>
-        /// <typeparam name="T">Meepo paskage</typeparam>
+        /// <typeparam name="T">Meepo package</typeparam>
         /// <param name="action">MessageReceivedHandler delegate</param>
         public void Subscribe<T>(MessageReceivedHandler<T> action)
         {
             var attribute = typeof(T).GetMeepoPackageAttribute();
 
-            if (attribute == null) throw new TypicalMeepoException("Type must have meepo package attribute!");
+            if (attribute == null) throw new TypicalMeepoException("Type must have Meepo package attribute!");
 
             var typeId = repo.GetId(typeof(T));
 
@@ -153,6 +195,10 @@ namespace TypicalMeepo
             meepo.MessageReceived += handlers[typeId];
         }
 
+        /// <summary>
+        /// Unsubscribe from event.
+        /// </summary>
+        /// <typeparam name="T">Meepo package</typeparam>
         public void Unsubscribe<T>()
         {
             var typeId = repo.GetId(typeof(T));
@@ -162,6 +208,9 @@ namespace TypicalMeepo
             meepo.MessageReceived -= handlers[typeId];
         }
 
+        /// <summary>
+        /// Stop Meepo server and dispose.
+        /// </summary>
         public void Dispose()
         {
             meepo.Stop();

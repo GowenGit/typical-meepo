@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
-using System.Reflection;
 using Meepo.Core.Configs;
+using Meepo.Core.Logging;
 using TypicalMeepo.Core.Attributes;
 
 namespace TypicalMeepo.Console
@@ -12,19 +12,32 @@ namespace TypicalMeepo.Console
 
         public static void Main()
         {
+            var config = new MeepoConfig
+            {
+                Logger = new ConsoleLogger(),
+                BufferSizeInBytes = 1000000
+            };
+
             var address = new TcpAddress(IPAddress.Loopback, 9201);
             var serverAddresses = new[] { new TcpAddress(IPAddress.Loopback, 9200) };
 
-            using (meepo = new TypicalMeepo(address, serverAddresses, new[] { Assembly.GetEntryAssembly() }))
+            using (meepo = new TypicalMeepo(address, serverAddresses, config))
             {
                 meepo.Start();
 
                 meepo.Subscribe<Info>(OnInfoReceived);
 
+                var message = "";
+
+                for (var i = 0; i < 10000; i++)
+                {
+                    message += $"{i} Hello there! ";
+                }
+
                 var info = new Info
                 {
                     Date = DateTime.Now,
-                    Message = "Hello there!"
+                    Message = message
                 };
 
                 while (true)
@@ -33,7 +46,7 @@ namespace TypicalMeepo.Console
 
                     if (text.ToLower() == "q") return;
 
-                    meepo.Send(info).Wait();
+                    meepo.SendAsync(info).Wait();
                 }
             }
         }
