@@ -29,13 +29,18 @@ that are passed in and giving them IDs based on where they appear in an ordered 
 You can initialize a new node like this:
 
 ```
+var config = new MeepoConfig
+{
+    Logger = new ConsoleLogger()
+};
+
 // IP Address to expose
 var address = new TcpAddress(IPAddress.Loopback, 9201);
 
 // Nodes to connect to
 var serverAddresses = new[] { new TcpAddress(IPAddress.Loopback, 9200) };
 
-using (var meepo = new TypicalMeepo(address, serverAddresses))
+using (var meepo = new TypicalMeepo(address, serverAddresses, config))
 {
     meepo.Start();
 

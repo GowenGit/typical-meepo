@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Net;
 using Meepo.Core.Configs;
+using Meepo.Core.Logging;
 using TypicalMeepo.Core.Attributes;
 
 namespace TypicalMeepo.Console
@@ -9,13 +10,18 @@ namespace TypicalMeepo.Console
     {
         public void ExampleMethod()
         {
+            var config = new MeepoConfig
+            {
+                Logger = new ConsoleLogger()
+            };
+
             // IP Address to expose
             var address = new TcpAddress(IPAddress.Loopback, 9201);
 
             // Nodes to connect to
             var serverAddresses = new[] { new TcpAddress(IPAddress.Loopback, 9200) };
 
-            using (var meepo = new TypicalMeepo(address, serverAddresses))
+            using (var meepo = new TypicalMeepo(address, serverAddresses, config))
             {
                 meepo.Start();
 
