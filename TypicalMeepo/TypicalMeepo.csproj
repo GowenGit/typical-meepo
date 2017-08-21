@@ -3,7 +3,7 @@
     <Authors>Modestas Petravicius</Authors>
     <Title>TypicalMeepo</Title>
     <AssemblyTitle>TypicalMeepo</AssemblyTitle>
-    <Description>Serialization layer for Meepo</Description>
+    <Description>Serialization layer for Meepo.</Description>
     <Copyright>MIT License</Copyright>
     <PackageProjectUrl>https://github.com/GowenGit/TypicalMeepo</PackageProjectUrl>
     <RepositoryUrl>https://github.com/GowenGit/TypicalMeepo</RepositoryUrl>
