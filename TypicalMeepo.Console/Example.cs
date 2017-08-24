@@ -29,7 +29,9 @@ namespace TypicalMeepo.Console
 
                 while (true)
                 {
-                    System.Console.ReadLine();
+                    var text = System.Console.ReadLine();
+
+                    if (text.ToLower() == "q") break;
 
                     meepo.SendAsync(new ChatMessage
                     {

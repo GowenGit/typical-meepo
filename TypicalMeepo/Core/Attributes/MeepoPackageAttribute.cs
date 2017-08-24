@@ -2,8 +2,5 @@
 
 namespace TypicalMeepo.Core.Attributes
 {
-    public class MeepoPackageAttribute : Attribute
-    {
-        public MeepoPackageAttribute() { }
-    }
+    public class MeepoPackageAttribute : Attribute { }
 }

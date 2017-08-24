@@ -1,4 +1,4 @@
-# <img src ="./icon.png" width="23px" /> TypicalMeepo
+# <img src ="./Assets/TypicalMeepo Logo.svg" height="120px"/>
 
 ### Socket based duplex communication framework for .NET Core
 
@@ -77,7 +77,11 @@ var meepo = new TypicalMeepo(address, serverAddresses, config);
 
 You are able to subscribe to messages of a specific type.
 
-### Run on Windows or Linux
+### Installation
 
 * Restore solution: `dotnet restore`
 * Run the console app: `dotnet run`
+
+### License
+
+MIT License
