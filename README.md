@@ -1,4 +1,4 @@
-# <img src ="./Assets/TypicalMeepo Logo.svg" height="120px"/>
+# <img src ="https://rawgit.com/GowenGit/TypicalMeepo/master/Assets/TypicalMeepo%20Logo.svg" height="120px"/>
 
 ### Socket based duplex communication framework for .NET Core
 
