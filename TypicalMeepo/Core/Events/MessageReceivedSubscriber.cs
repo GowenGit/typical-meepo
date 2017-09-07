@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Meepo.Core.Extensions;
+using TypicalMeepo.Core.Exceptions;
 using TypicalMeepo.Core.Extensions;
 
 namespace TypicalMeepo.Core.Events
@@ -24,16 +25,30 @@ namespace TypicalMeepo.Core.Events
             {
                 if (!messageIncomingTracker.ContainsKey(args.Id) || !messageIncomingTracker[args.Id])
                 {
-                    if (Type.GetType(args.Bytes.Decode()) == typeof(T))
+                    try
                     {
-                        messageIncomingTracker[args.Id] = true;
+                        if (Type.GetType(args.Bytes.Decode()) == typeof(T))
+                        {
+                            messageIncomingTracker[args.Id] = true;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new TypicalMeepoException("Failed to identify type of package!", ex);
                     }
                 }
                 else
                 {
                     messageIncomingTracker[args.Id] = false;
 
-                    handler(args.Id, args.Bytes.BytesToPackage<T>());
+                    try
+                    {
+                        handler(args.Id, args.Bytes.BytesToPackage<T>());
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new TypicalMeepoException($"Failed to deserialize package to {nameof(T)}!", ex);
+                    }
                 }
             }
         }

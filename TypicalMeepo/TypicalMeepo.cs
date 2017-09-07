@@ -137,9 +137,13 @@ namespace TypicalMeepo
 
             var subscriber = new MessageReceivedSubscriber<T>(action);
 
-            handlers[typeof(T)] = subscriber.OnMessageReceived;
+            var type = typeof(T);
 
-            meepo.MessageReceived += handlers[typeof(T)];
+            if (handlers.ContainsKey(type)) meepo.MessageReceived -= handlers[type];
+
+            handlers[type] = subscriber.OnMessageReceived;
+
+            meepo.MessageReceived += handlers[type];
         }
 
         /// <summary>

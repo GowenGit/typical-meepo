@@ -18,8 +18,8 @@ namespace TypicalMeepo.Console
                 BufferSizeInBytes = 1000000
             };
 
-            var address = new TcpAddress(IPAddress.Loopback, 9201);
-            var serverAddresses = new[] { new TcpAddress(IPAddress.Loopback, 9200) };
+            var address = new TcpAddress(IPAddress.Loopback, 9200);
+            var serverAddresses = new[] { new TcpAddress(IPAddress.Loopback, 9201) };
 
             using (meepo = new TypicalMeepo(address, serverAddresses, config))
             {
