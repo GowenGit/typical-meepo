@@ -1,5 +1,7 @@
 # <img src ="https://rawgit.com/GowenGit/TypicalMeepo/master/Assets/TypicalMeepo%20Logo.svg" height="120px"/>
 
+### [![Build Status](https://travis-ci.org/GowenGit/TypicalMeepo.svg?branch=master)](https://travis-ci.org/GowenGit/TypicalMeepo)
+
 ### Socket based duplex communication framework for .NET Core
 
 Serialization layer for [Meepo](https://github.com/GowenGit/Meepo).
