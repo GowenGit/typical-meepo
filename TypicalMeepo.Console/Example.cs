@@ -20,7 +20,7 @@ namespace TypicalMeepo.Console
             // Nodes to connect to
             var serverAddresses = new[] { new TcpAddress(IPAddress.Loopback, 9200) };
 
-            using (var meepo = new TypicalMeepo(address, serverAddresses, config))
+            using (var meepo = new TypicalMeepoNode(address, serverAddresses, config))
             {
                 meepo.Start();
 
@@ -35,7 +35,7 @@ namespace TypicalMeepo.Console
                     meepo.SendAsync(new ChatMessage
                     {
                         Date = DateTime.Now,
-                        Message = "Hello there!"
+                        Message = text
                     }).Wait();
                 }
             }

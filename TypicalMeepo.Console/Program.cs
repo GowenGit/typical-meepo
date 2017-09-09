@@ -7,7 +7,7 @@ namespace TypicalMeepo.Console
 {
     public class Program
     {
-        private static ITypicalMeepo meepo;
+        private static ITypicalMeepoNode meepoNode;
 
         public static void Main()
         {
@@ -20,11 +20,11 @@ namespace TypicalMeepo.Console
             var address = new TcpAddress(IPAddress.Loopback, 9200);
             var serverAddresses = new[] { new TcpAddress(IPAddress.Loopback, 9201) };
 
-            using (meepo = new TypicalMeepo(address, serverAddresses, config))
+            using (meepoNode = new TypicalMeepoNode(address, serverAddresses, config))
             {
-                meepo.Start();
+                meepoNode.Start();
 
-                meepo.Subscribe<Info>(OnInfoReceived);
+                meepoNode.Subscribe<Info>(OnInfoReceived);
 
                 var message = "";
 
@@ -45,7 +45,7 @@ namespace TypicalMeepo.Console
 
                     if (text.ToLower() == "q") return;
 
-                    meepo.SendAsync(info).Wait();
+                    meepoNode.SendAsync(info).Wait();
                 }
             }
         }

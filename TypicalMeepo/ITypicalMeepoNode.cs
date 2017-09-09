@@ -6,7 +6,7 @@ using TypicalMeepo.Core.Events;
 
 namespace TypicalMeepo
 {
-    public interface ITypicalMeepo : IDisposable
+    public interface ITypicalMeepoNode : IDisposable
     {
         /// <summary>
         /// Get IDs and addresses of all connected servers.

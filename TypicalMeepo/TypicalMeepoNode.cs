@@ -1,17 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Meepo;
 using Meepo.Core.Configs;
 using Meepo.Core.Extensions;
 using TypicalMeepo.Core.Events;
-using TypicalMeepo.Core.Exceptions;
 using TypicalMeepo.Core.Extensions;
 
 namespace TypicalMeepo
 {
-    public class TypicalMeepo : ITypicalMeepo
+    public class TypicalMeepoNode : ITypicalMeepoNode
     {
-        private readonly Meepo.Meepo meepo;
+        private readonly MeepoNode meepo;
 
         private readonly Dictionary<Type, MessageReceivedHandler> handlers = new Dictionary<Type, MessageReceivedHandler>();
 
@@ -21,9 +21,9 @@ namespace TypicalMeepo
         /// Constructor.
         /// </summary>
         /// <param name="listenerAddress">Address you want to expose</param>
-        public TypicalMeepo(TcpAddress listenerAddress)
+        public TypicalMeepoNode(TcpAddress listenerAddress)
         {
-            meepo = new Meepo.Meepo(listenerAddress);
+            meepo = new MeepoNode(listenerAddress);
         }
 
         /// <summary>
@@ -31,9 +31,9 @@ namespace TypicalMeepo
         /// </summary>
         /// <param name="listenerAddress">Address you want to expose</param>
         /// <param name="config">Meepo configuration</param>
-        public TypicalMeepo(TcpAddress listenerAddress, MeepoConfig config)
+        public TypicalMeepoNode(TcpAddress listenerAddress, MeepoConfig config)
         {
-            meepo = new Meepo.Meepo(listenerAddress, config);
+            meepo = new MeepoNode(listenerAddress, config);
         }
 
         /// <summary>
@@ -41,9 +41,9 @@ namespace TypicalMeepo
         /// </summary>
         /// <param name="listenerAddress">Address you want to expose</param>
         /// <param name="serverAddresses">List of server addresses to connect to</param>
-        public TypicalMeepo(TcpAddress listenerAddress, IEnumerable<TcpAddress> serverAddresses)
+        public TypicalMeepoNode(TcpAddress listenerAddress, IEnumerable<TcpAddress> serverAddresses)
         {
-            meepo = new Meepo.Meepo(listenerAddress, serverAddresses);
+            meepo = new MeepoNode(listenerAddress, serverAddresses);
         }
 
         /// <summary>
@@ -52,9 +52,9 @@ namespace TypicalMeepo
         /// <param name="listenerAddress">Address you want to expose</param>
         /// <param name="serverAddresses">List of server addresses to connect to</param>
         /// <param name="config">Meepo configuration</param>
-        public TypicalMeepo(TcpAddress listenerAddress, IEnumerable<TcpAddress> serverAddresses, MeepoConfig config)
+        public TypicalMeepoNode(TcpAddress listenerAddress, IEnumerable<TcpAddress> serverAddresses, MeepoConfig config)
         {
-            meepo = new Meepo.Meepo(listenerAddress, serverAddresses, config);
+            meepo = new MeepoNode(listenerAddress, serverAddresses, config);
         }
 
         #endregion
