@@ -2,7 +2,6 @@
 using System.Net;
 using Meepo.Core.Configs;
 using Meepo.Core.Logging;
-using TypicalMeepo.Core.Attributes;
 
 namespace TypicalMeepo.Console
 {
@@ -43,7 +42,6 @@ namespace TypicalMeepo.Console
         }
     }
 
-    [MeepoPackage]
     public class ChatMessage
     {
         public DateTime Date { get; set; }

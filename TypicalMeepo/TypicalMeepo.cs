@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Meepo.Core.Configs;
 using Meepo.Core.Extensions;
-using TypicalMeepo.Core.Attributes;
 using TypicalMeepo.Core.Events;
 using TypicalMeepo.Core.Exceptions;
 using TypicalMeepo.Core.Extensions;
@@ -95,8 +94,6 @@ namespace TypicalMeepo
         /// <returns></returns>
         public async Task SendAsync<T>(Guid id, T data)
         {
-            CheckForAttribute<T>();
-
             await meepo.SendAsync(id, typeof(T).GetAssemblyName().Encode());
 
             await meepo.SendAsync(id, data.PackageToBytes());
@@ -110,8 +107,6 @@ namespace TypicalMeepo
         /// <returns></returns>
         public async Task SendAsync<T>(T data)
         {
-            CheckForAttribute<T>();
-
             await meepo.SendAsync(typeof(T).GetAssemblyName().Encode());
 
             await meepo.SendAsync(data.PackageToBytes());
@@ -133,8 +128,6 @@ namespace TypicalMeepo
         /// <param name="action">MessageReceivedHandler delegate</param>
         public void Subscribe<T>(MessageReceivedHandler<T> action)
         {
-            CheckForAttribute<T>();
-
             var subscriber = new MessageReceivedSubscriber<T>(action);
 
             var type = typeof(T);
@@ -155,13 +148,6 @@ namespace TypicalMeepo
             if (!handlers.ContainsKey(typeof(T))) return;
 
             meepo.MessageReceived -= handlers[typeof(T)];
-        }
-
-        private static void CheckForAttribute<T>()
-        {
-            var attribute = typeof(T).GetMeepoPackageAttribute();
-
-            if (attribute == null) throw new TypicalMeepoException("Type must have Meepo package attribute!");
         }
 
         /// <summary>

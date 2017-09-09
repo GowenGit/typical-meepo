@@ -11,7 +11,6 @@ Serialization layer for [Meepo](https://github.com/GowenGit/Meepo).
 Create a type that you would like to transmit:
 
 ```
-[MeepoPackage]
 public class ChatMessage
 {
     public DateTime Date { get; set; }
@@ -19,8 +18,6 @@ public class ChatMessage
     public string Message { get; set; }
 }
 ```
-
-`MeepoPackage` is used to indicate transmittable types.
 
 You can initialize a new node like this:
 
