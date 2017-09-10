@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using Meepo;
 using Meepo.Core.Configs;
 using Meepo.Core.Extensions;
+using Meepo.Core.StateMachine;
 using TypicalMeepo.Core.Events;
 using TypicalMeepo.Core.Extensions;
 
@@ -11,7 +12,7 @@ namespace TypicalMeepo
 {
     public class TypicalMeepoNode : ITypicalMeepoNode
     {
-        private readonly MeepoNode meepo;
+        private readonly IMeepoNode meepo;
 
         private readonly Dictionary<Type, MessageReceivedHandler> handlers = new Dictionary<Type, MessageReceivedHandler>();
 
@@ -55,6 +56,15 @@ namespace TypicalMeepo
         public TypicalMeepoNode(TcpAddress listenerAddress, IEnumerable<TcpAddress> serverAddresses, MeepoConfig config)
         {
             meepo = new MeepoNode(listenerAddress, serverAddresses, config);
+        }
+
+        /// <summary>
+        /// Test constructor
+        /// </summary>
+        /// <param name="meepo">Fake Meepo node</param>
+        internal TypicalMeepoNode(IMeepoNode meepo)
+        {
+            this.meepo = meepo ?? throw new ArgumentNullException(nameof(meepo));
         }
 
         #endregion
@@ -113,6 +123,11 @@ namespace TypicalMeepo
         }
 
         /// <summary>
+        /// Meepo server state.
+        /// </summary>
+        public State ServerState => meepo.ServerState;
+
+        /// <summary>
         /// Get IDs and addresses of all connected servers.
         /// </summary>
         /// <returns></returns>
@@ -128,6 +143,8 @@ namespace TypicalMeepo
         /// <param name="action">MessageReceivedHandler delegate</param>
         public void Subscribe<T>(MessageReceivedHandler<T> action)
         {
+            if (action == null) throw new ArgumentNullException(nameof(action));
+
             var subscriber = new MessageReceivedSubscriber<T>(action);
 
             var type = typeof(T);

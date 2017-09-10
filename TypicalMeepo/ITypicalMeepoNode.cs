@@ -2,12 +2,18 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Meepo.Core.Configs;
+using Meepo.Core.StateMachine;
 using TypicalMeepo.Core.Events;
 
 namespace TypicalMeepo
 {
     public interface ITypicalMeepoNode : IDisposable
     {
+        /// <summary>
+        /// Meepo server state.
+        /// </summary>
+        State ServerState { get; }
+
         /// <summary>
         /// Get IDs and addresses of all connected servers.
         /// </summary>
