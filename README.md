@@ -10,7 +10,7 @@ Serialization layer for [Meepo](https://github.com/GowenGit/Meepo).
 
 Create a type that you would like to transmit:
 
-```
+```cs
 public class ChatMessage
 {
     public DateTime Date { get; set; }
@@ -21,7 +21,7 @@ public class ChatMessage
 
 You can initialize a new node like this:
 
-```
+```cs
 var config = new MeepoConfig
 {
     Logger = new ConsoleLogger()
@@ -54,7 +54,7 @@ using (var meepo = new TypicalMeepoNode(address, serverAddresses, config))
 
 You can pass in a `MeepoConfig` object that lets you change the behavior of the server:
 
-```
+```cs
 var config = new MeepoConfig
 {
     BufferSizeInBytes = 1000,

@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Net;
+using System.Threading;
 using Meepo.Core.Configs;
 using Meepo.Core.Logging;
 
 namespace TypicalMeepo.Console
 {
-    public class Program
+    public class Server
     {
         private static ITypicalMeepoNode meepoNode;
 
@@ -14,11 +15,10 @@ namespace TypicalMeepo.Console
             var config = new MeepoConfig
             {
                 Logger = new ConsoleLogger(),
-                BufferSizeInBytes = 1000000
+                BufferSizeInBytes = 1000
             };
 
-            var address = new TcpAddress(IPAddress.Loopback, 9201);
-            var serverAddresses = new[] { new TcpAddress(IPAddress.Loopback, 9200) };
+            var address = new TcpAddress(IPAddress.Loopback, 9200);
 
             using (meepoNode = new TypicalMeepoNode(address, config))
             {
@@ -26,26 +26,11 @@ namespace TypicalMeepo.Console
 
                 meepoNode.Subscribe<Info>(OnInfoReceived);
 
-                var message = "";
-
-                for (var i = 0; i < 10000; i++)
-                {
-                    message += $"{i} Hello there! ";
-                }
-
-                var info = new Info
-                {
-                    Date = DateTime.Now,
-                    Message = message
-                };
-
                 while (true)
                 {
                     var text = System.Console.ReadLine();
 
                     if (text.ToLower() == "q") return;
-
-                    meepoNode.SendAsync(info).Wait();
                 }
             }
         }
@@ -56,12 +41,5 @@ namespace TypicalMeepo.Console
             System.Console.WriteLine($"Date: {info.Date}");
             System.Console.WriteLine($"Message: {info.Message}");
         }
-    }
-
-    public class Info
-    {
-        public DateTime Date { get; set; }
-
-        public string Message { get; set; }
     }
 }
