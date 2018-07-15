@@ -1,8 +1,7 @@
 language: csharp
 solution: TypicalMeepo.sln
 mono: none
-dotnet: 1.0.3
-dist: trusty
+dotnet: 2.0.0
 script:
  - dotnet restore
  - dotnet test TypicalMeepo.Tests.Unit/TypicalMeepo.Tests.Unit.csproj

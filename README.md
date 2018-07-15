@@ -1,6 +1,6 @@
-# <img src ="https://rawgit.com/GowenGit/TypicalMeepo/master/Assets/TypicalMeepo%20Logo.svg" height="120px"/>
+# <img src ="https://rawgit.com/GowenGit/typical-meepo/master/Assets/TypicalMeepo%20Logo.svg" height="120px"/>
 
-### [![Build Status](https://travis-ci.org/GowenGit/TypicalMeepo.svg?branch=master)](https://travis-ci.org/GowenGit/TypicalMeepo)
+### [![Build Status](https://travis-ci.org/GowenGit/typical-meepo.svg?branch=master)](https://travis-ci.org/GowenGit/typical-meepo)
 
 ### Socket based duplex communication framework for .NET Core
 
