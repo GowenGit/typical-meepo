@@ -9,7 +9,7 @@
     <RepositoryUrl>https://github.com/GowenGit/TypicalMeepo</RepositoryUrl>
     <PackageIconUrl>https://raw.githubusercontent.com/GowenGit/TypicalMeepo/master/Assets/icon.png</PackageIconUrl>
     <PackageTags>.NET Core;Sockets;Duplex;Cluster;Network;Serialization</PackageTags>
-    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <RepositoryType>GitHub</RepositoryType>
     <PackageLicenseUrl>https://github.com/GowenGit/TypicalMeepo</PackageLicenseUrl>
     <NeutralLanguage>en-GB</NeutralLanguage>
@@ -17,15 +17,15 @@
     <Version>0.3.0-alpha</Version>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>bin\Debug\netcoreapp1.1\TypicalMeepo.xml</DocumentationFile>
+    <DocumentationFile>bin\Debug\netstandard2.0\TypicalMeepo.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\Release\netcoreapp1.1\TypicalMeepo.xml</DocumentationFile>
+    <DocumentationFile>bin\Release\netstandard2.0\TypicalMeepo.xml</DocumentationFile>
     <NoWarn>1701;1702;1705;1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Meepo" Version="0.3.0-alpha" />
+    <PackageReference Include="Meepo" Version="0.4.0-alpha" />
     <PackageReference Include="Newtonsoft.Json" Version="10.0.3" />
     <PackageReference Include="System.ValueTuple" Version="4.4.0" />
   </ItemGroup>
