@@ -5,4 +5,4 @@ dotnet: 2.0.0
 script:
  - dotnet restore
  - dotnet test TypicalMeepo.Tests.Unit/TypicalMeepo.Tests.Unit.csproj
- - dotnet test TypicalMeepo.Tests.Integration/TypicalMeepo.Tests.Integration.csproj
+# - dotnet test TypicalMeepo.Tests.Integration/TypicalMeepo.Tests.Integration.csproj
